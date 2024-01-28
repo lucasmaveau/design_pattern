@@ -1,25 +1,21 @@
 # L3 design pattern report
 
-- **Firstname**: [Your firstname]
-- **Lastname**: [Your lastname]
+- **Firstname**: Lucas
+- **Lastname**: Maveau
 
+28/01
+Ajout des classes : 
 
-> Add your thoughts on every TP bellow, everything is interresting but no need to right a book.
-> 
-> Keep it short simple and efficient:
-> 
-> - What you did and why
-> - What helped you and why
-> - What did you find difficult
-> - What did not help you
-> - What did you need to change
-> - Anything relevant
-> 
-> Add a link to schemas describing your architecture (UML or not but add a legend)
-> 
-> Remember: it is ok to make mistakes, you will have time to spot them later.
-> 
-> Fill free to contact me if needed.
+- TaskManager
+- FileManager
+    - FileManagerCsv
+    - FileManagerJson
+
+La classe App donc gère le démarrage de l'application, analyse les arguments de la ligne de commande, et délègue l'exécution des commandes à la classe TaskManager.
+
+La classe TaskManager gère les opérations liées aux tâches (insertion, listing) et utilise un objet de type GestionnaireDeFichier pour lire/écrire les données en fonction du type de fichier spécifié.
+
+De ce fait, la classe File Manager est une interface qui définit les opérations de base pour la manipulation de fichiers, avec des implémentations spécifiques pour les fichiers : FileManagerCsv et FileManagerJson qui implémente les commandes en fonction du fichier.
 
 ---
 ...
