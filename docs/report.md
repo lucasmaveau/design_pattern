@@ -17,9 +17,8 @@ La classe TaskManager gère les opérations liées aux tâches (insertion, listi
 
 De ce fait, la classe File Manager est une interface qui définit les opérations de base pour la manipulation de fichiers, avec des implémentations spécifiques pour les fichiers : FileManagerCsv et FileManagerJson qui implémente les commandes en fonction du fichier.
 
----
 
-03/02 
+03/02
 Organisation dans les packages : 
 
 src/
@@ -34,4 +33,5 @@ src/
 |   |-- FileManagerJson.java
 |   |-- FileManagerCsv.java
 
+création des packages options et commande..
 ...
