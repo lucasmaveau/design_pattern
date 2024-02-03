@@ -25,8 +25,11 @@ De ce fait, la classe File Manager est une interface qui définit les opération
 Organisation dans les packages : 
 """
 src/
+
 |-- presentation/
+
 |   |-- App.java
+
 |
 |-- logic/
 |   |-- TaskManager.java
