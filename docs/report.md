@@ -23,7 +23,7 @@ De ce fait, la classe File Manager est une interface qui définit les opération
 03/02
 
 Organisation dans les packages : 
-
+"""
 src/
 |-- presentation/
 |   |-- App.java
@@ -35,6 +35,7 @@ src/
 |   |-- FileManager.java
 |   |-- FileManagerJson.java
 |   |-- FileManagerCsv.java
+"""
 
 création des packages options et commande..
 ...
