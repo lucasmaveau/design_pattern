@@ -49,17 +49,17 @@ src/
 
 J'ai décidé donc d'organiser mes packages comme ci dessus et j'ai rajouté des méthodes listerTachesTerminer afin de différencier une tache terminé ou non et de pouvoir les traiter : 
 
-- Ajouter une tâche terminée
+Ajouter une tâche terminée
 ./exec.sh insert "I am done" -d -s file.json
 
-- Ajouter une tâche non terminée
+Ajouter une tâche non terminée
 ./exec.sh insert "I am not done" -s file.json
 
-- Liste de toutes les tâches
+Liste de toutes les tâches
 ./exec.sh list -s file.json
 -- Done: I am done
 -- I am not done
 
-- Liste des tâches terminées uniquement
+Liste des tâches terminées uniquement
 ./exec.sh list -s file.json --done
 -- Done: I am done
