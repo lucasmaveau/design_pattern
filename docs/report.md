@@ -23,7 +23,7 @@ De ce fait, la classe File Manager est une interface qui définit les opération
 03/02
 
 Organisation dans les packages : 
-"""
+
 src/
 
 |-- presentation/
@@ -31,14 +31,35 @@ src/
 |   |-- App.java
 
 |
-|-- logic/
-|   |-- TaskManager.java
-|
-|-- data/
-|   |-- FileManager.java
-|   |-- FileManagerJson.java
-|   |-- FileManagerCsv.java
-"""
 
-création des packages options et commande..
-...
+|-- logic/
+
+|   |-- TaskManager.java
+
+|
+
+|-- data/
+
+|   |-- FileManager.java
+
+|   |-- FileManagerJson.java
+
+|   |-- FileManagerCsv.java
+
+
+J'ai décidé donc d'organiser mes packages comme ci dessus et j'ai rajouté des méthodes listerTachesTerminer afin de différencier une tache terminé ou non et de pouvoir les traiter : 
+
+# Ajouter une tâche terminée
+./exec.sh insert "I am done" -d -s file.json
+
+# Ajouter une tâche non terminée
+./exec.sh insert "I am not done" -s file.json
+
+# Liste de toutes les tâches
+./exec.sh list -s file.json
+# Done: I am done
+# I am not done
+
+# Liste des tâches terminées uniquement
+./exec.sh list -s file.json --done
+# Done: I am done
