@@ -113,7 +113,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.fges.todoapp.App</mainClass>
+              <mainClass>com.fges.todoapp.presentation.App</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

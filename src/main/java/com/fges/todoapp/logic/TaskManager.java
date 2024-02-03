@@ -1,4 +1,6 @@
-package com.fges.todoapp;
+package com.fges.todoapp.logic;
+
+import com.fges.todoapp.data.FileManager;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -7,9 +9,11 @@ import java.util.List;
 public class TaskManager {
 
     private final FileManager fileManager;
+    private final boolean isDone;
 
-    public TaskManager(FileManager fileManager) {
+    public TaskManager(FileManager fileManager, boolean isDone) {
         this.fileManager = fileManager;
+        this.isDone = isDone;
     }
 
     public void executerCommande(String[] args) throws IOException {
@@ -18,6 +22,13 @@ public class TaskManager {
             System.err.println("Missing Command");
             return;
         }
+
+        String tache = positionalArgs.get(1);
+        if (isDone) {
+            tache = "[Done] " + tache;
+        }
+
+        fileManager.insererTache(tache);
 
         String command = positionalArgs.get(0);
 
@@ -42,6 +53,17 @@ public class TaskManager {
 
     private void listerTaches() throws IOException {
         String contenuFichier = fileManager.lireContenuFichier();
+
+        if (isDone) {
+            listerTachesTermines(contenuFichier);
+        } else {
+            fileManager.listerTaches(contenuFichier);
+        }
+
         fileManager.listerTaches(contenuFichier);
+    }
+
+    private void listerTachesTermines(String contenuFichier) throws IOException {
+        fileManager.listerTachesTermines(contenuFichier);
     }
 }

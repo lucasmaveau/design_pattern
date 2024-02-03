@@ -1,4 +1,4 @@
-package com.fges.todoapp;
+package com.fges.todoapp.data;
 import java.io.IOException;
 
 public interface FileManager {
@@ -10,4 +10,6 @@ public interface FileManager {
     void insererTache(String tache) throws IOException;
 
     void listerTaches(String contenuFichier) throws IOException;
+
+    void listerTachesTermines(String contenuFichier) throws IOException;
 }

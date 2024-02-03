@@ -1,4 +1,4 @@
-package com.fges.todoapp;
+package com.fges.todoapp.data;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,6 +53,23 @@ public class FileManagerJson implements FileManager {
 
         if (actualObj instanceof ArrayNode arrayNode) {
             arrayNode.forEach(node -> System.out.println("- " + node.toString()));
+        }
+    }
+
+    @Override
+    public void listerTachesTermines(String contenuFichier) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(contenuFichier);
+        if (actualObj instanceof MissingNode) {
+            actualObj = JsonNodeFactory.instance.arrayNode();
+        }
+
+        if (actualObj instanceof ArrayNode arrayNode) {
+            arrayNode.forEach(node -> {
+                if (node.toString().startsWith("[Done]")) {
+                    System.out.println("- " + node.toString());
+                }
+            });
         }
     }
 }

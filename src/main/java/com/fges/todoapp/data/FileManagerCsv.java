@@ -1,4 +1,4 @@
-package com.fges.todoapp;
+package com.fges.todoapp.data;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,5 +43,12 @@ public class FileManagerCsv implements FileManager {
                                 .collect(Collectors.toList())
                 )
         );
+    }
+
+    @Override
+    public void listerTachesTermines(String contenuFichier) {
+        Arrays.stream(contenuFichier.split("\n"))
+                .filter(task -> task.startsWith("[Done]"))
+                .forEach(task -> System.out.println("- " + task));
     }
 }
