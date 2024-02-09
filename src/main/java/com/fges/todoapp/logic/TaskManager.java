@@ -16,54 +16,52 @@ public class TaskManager {
         this.isDone = isDone;
     }
 
-    public void executerCommande(String[] args) throws IOException {
+    public void executeCommand(String[] args) throws IOException {
         List<String> positionalArgs = Arrays.asList(args);
         if (positionalArgs.isEmpty()) {
             System.err.println("Missing Command");
             return;
         }
 
-        String tache = positionalArgs.get(1);
+        String task = positionalArgs.get(1);
         if (isDone) {
-            tache = "[Done] " + tache;
+            task = "[Done] " + task;
         }
 
-        fileManager.insererTache(tache);
+        fileManager.insertTask(task);
 
         String command = positionalArgs.get(0);
 
         if (command.equals("insert")) {
-            insererTache(positionalArgs);
+            insertTask(positionalArgs);
         }
 
         if (command.equals("list")) {
-            listerTaches();
+            listTasks();
         }
     }
 
-    private void insererTache(List<String> positionalArgs) throws IOException {
+    private void insertTask(List<String> positionalArgs) throws IOException {
         if (positionalArgs.size() < 2) {
             System.err.println("Missing TODO name");
             return;
         }
-        String tache = positionalArgs.get(1);
+        String task = positionalArgs.get(1);
 
-        fileManager.insererTache(tache);
+        fileManager.insertTask(task);
     }
 
-    private void listerTaches() throws IOException {
-        String contenuFichier = fileManager.lireContenuFichier();
+    private void listTasks() throws IOException {
+        String fileContent = fileManager.readContent();
 
         if (isDone) {
-            listerTachesTermines(contenuFichier);
+            listDoneTasks(fileContent);
         } else {
-            fileManager.listerTaches(contenuFichier);
+            fileManager.listTasks(fileContent);
         }
-
-        fileManager.listerTaches(contenuFichier);
     }
 
-    private void listerTachesTermines(String contenuFichier) throws IOException {
-        fileManager.listerTachesTermines(contenuFichier);
+    private void listDoneTasks(String fileContent) throws IOException {
+        fileManager.listDoneTasks(fileContent);
     }
 }

@@ -1,6 +1,30 @@
+# .gitignore
+
+# Development files
+.DS_Store
 .vscode
 .idea
+*.iml
 
-target
+# Compiled files
+*.class
 
-tmp-*
+# Maven
+target/
+
+# Gradle
+build/
+
+# IntelliJ
+out/
+.idea/
+
+# Eclipse
+bin/
+.settings/
+.classpath
+.project
+.metadata/
+
+# Logs
+*.log

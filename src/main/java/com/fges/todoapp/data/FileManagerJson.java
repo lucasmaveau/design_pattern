@@ -19,34 +19,34 @@ public class FileManagerJson implements FileManager {
     }
 
     @Override
-    public String lireContenuFichier() throws IOException {
+    public String readContent() throws IOException {
         return Files.exists(filePath) ? Files.readString(filePath) : "";
     }
 
     @Override
-    public void ecrireDansFichier(String contenu) throws IOException {
-        Files.writeString(filePath, contenu);
+    public void writeContent(String content) throws IOException {
+        Files.writeString(filePath, content);
     }
 
     @Override
-    public void insererTache(String tache) throws IOException {
-        String contenuFichier = lireContenuFichier();
+    public void insertTask(String task) throws IOException {
+        String fileContent = readContent();
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(contenuFichier);
+        JsonNode actualObj = mapper.readTree(fileContent);
         if (actualObj instanceof MissingNode) {
             actualObj = JsonNodeFactory.instance.arrayNode();
         }
 
         if (actualObj instanceof ArrayNode arrayNode) {
-            arrayNode.add(tache);
+            arrayNode.add(task);
         }
-        ecrireDansFichier(actualObj.toString());
+        writeContent(actualObj.toString());
     }
 
     @Override
-    public void listerTaches(String contenuFichier) throws IOException {
+    public void listTasks(String fileContent) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(contenuFichier);
+        JsonNode actualObj = mapper.readTree(fileContent);
         if (actualObj instanceof MissingNode) {
             actualObj = JsonNodeFactory.instance.arrayNode();
         }
@@ -57,9 +57,9 @@ public class FileManagerJson implements FileManager {
     }
 
     @Override
-    public void listerTachesTermines(String contenuFichier) throws IOException {
+    public void listDoneTasks(String fileContent) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(contenuFichier);
+        JsonNode actualObj = mapper.readTree(fileContent);
         if (actualObj instanceof MissingNode) {
             actualObj = JsonNodeFactory.instance.arrayNode();
         }

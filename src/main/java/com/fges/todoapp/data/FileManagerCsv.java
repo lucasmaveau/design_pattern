@@ -15,39 +15,39 @@ public class FileManagerCsv implements FileManager {
     }
 
     @Override
-    public String lireContenuFichier() throws IOException {
+    public String readContent() throws IOException {
         return Files.exists(filePath) ? Files.readString(filePath) : "";
     }
 
     @Override
-    public void ecrireDansFichier(String contenu) throws IOException {
-        Files.writeString(filePath, contenu);
+    public void writeContent(String content) throws IOException {
+        Files.writeString(filePath, content);
     }
 
     @Override
-    public void insererTache(String tache) throws IOException {
-        String contenuFichier = lireContenuFichier();
-        if (!contenuFichier.endsWith("\n") && !contenuFichier.isEmpty()) {
-            contenuFichier += "\n";
+    public void insertTask(String task) throws IOException {
+        String fileContent = readContent();
+        if (!fileContent.endsWith("\n") && !fileContent.isEmpty()) {
+            fileContent += "\n";
         }
-        contenuFichier += tache;
-        ecrireDansFichier(contenuFichier);
+        fileContent += task;
+        writeContent(fileContent);
     }
 
     @Override
-    public void listerTaches(String contenuFichier) {
+    public void listTasks(String fileContent) {
         System.out.println(
                 String.join("\n",
-                        Arrays.stream(contenuFichier.split("\n"))
-                                .map(tache -> "- " + tache)
+                        Arrays.stream(fileContent.split("\n"))
+                                .map(task -> "- " + task)
                                 .collect(Collectors.toList())
                 )
         );
     }
 
     @Override
-    public void listerTachesTermines(String contenuFichier) {
-        Arrays.stream(contenuFichier.split("\n"))
+    public void listDoneTasks(String fileContent) {
+        Arrays.stream(fileContent.split("\n"))
                 .filter(task -> task.startsWith("[Done]"))
                 .forEach(task -> System.out.println("- " + task));
     }

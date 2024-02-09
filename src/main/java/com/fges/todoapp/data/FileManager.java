@@ -1,15 +1,16 @@
 package com.fges.todoapp.data;
+
 import java.io.IOException;
 
 public interface FileManager {
 
-    String lireContenuFichier() throws IOException;
+    String readContent() throws IOException;
 
-    void ecrireDansFichier(String contenu) throws IOException;
+    void writeContent(String content) throws IOException;
 
-    void insererTache(String tache) throws IOException;
+    void insertTask(String task) throws IOException;
 
-    void listerTaches(String contenuFichier) throws IOException;
+    void listTasks(String fileContent) throws IOException;
 
-    void listerTachesTermines(String contenuFichier) throws IOException;
+    void listDoneTasks(String fileContent) throws IOException;
 }

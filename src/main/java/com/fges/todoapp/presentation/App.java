@@ -1,4 +1,5 @@
 package com.fges.todoapp.presentation;
+
 import com.fges.todoapp.data.FileManager;
 import com.fges.todoapp.data.FileManagerCsv;
 import com.fges.todoapp.data.FileManagerJson;
@@ -6,6 +7,7 @@ import com.fges.todoapp.logic.TaskManager;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
+
 /**
  * Hello world!
  */
@@ -34,21 +36,20 @@ public class App {
 
         String fileName = cmd.getOptionValue("s");
 
-        FileManager gestionnaireDeFichier;
+        FileManager fileManager;
         if (fileName.endsWith(".json")) {
-            gestionnaireDeFichier = new FileManagerJson(fileName);
+            fileManager = new FileManagerJson(fileName);
         } else if (fileName.endsWith(".csv")) {
-            gestionnaireDeFichier = new FileManagerCsv(fileName);
+            fileManager = new FileManagerCsv(fileName);
         } else {
-            //petit rajout j'avoue...
-            System.err.println("Extension de fichier non supportée");
+            System.err.println("Unsupported file extension");
             return 1;
         }
 
         boolean isDone = cmd.hasOption("d");
 
-        TaskManager gestionnaireDeTaches = new TaskManager(gestionnaireDeFichier, isDone);
-        gestionnaireDeTaches.executerCommande(cmd.getArgs());
+        TaskManager taskManager = new TaskManager(fileManager, isDone);
+        taskManager.executeCommand(cmd.getArgs());
 
         System.err.println("Done.");
         return 0;
