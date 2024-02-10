@@ -1,0 +1,13 @@
+diff --git a/src/test/java/com/fges/todoapp/e2e/GhostTests.java b/src/test/java/com/fges/todoapp/e2e/GhostTests.java
+index 2113438..451ed6b 100644
+--- a/src/test/java/com/fges/todoapp/e2e/GhostTests.java
++++ b/src/test/java/com/fges/todoapp/e2e/GhostTests.java
+@@ -83,7 +83,7 @@ public class GhostTests {
+
+         return new ExecOutput(
+                 sequence,
+-                Arrays.stream(sout.toString().split("\n")).toList(),
++                Arrays.stream(sout.toString().split("\n").map(String::trim)).toList(),
+                 exitOutput
+         );
+     }
