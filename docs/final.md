@@ -1,7 +1,3 @@
-Voici un exemple de rapport final répondant aux questions spécifiées :
-
----
-
 # Final Report
 
 ## Introduction
