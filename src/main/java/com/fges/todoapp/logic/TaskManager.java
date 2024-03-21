@@ -1,22 +1,35 @@
 package com.fges.todoapp.logic;
 
 import com.fges.todoapp.data.FileManager;
-
+import com.fges.todoapp.options.Option;
+import com.fges.todoapp.options.OptionsParser;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class TaskManager {
 
     private final FileManager fileManager;
-    private final boolean isDone;
+    private final Map<String, Option> options;
 
-    public TaskManager(FileManager fileManager, boolean isDone) {
+    public TaskManager(FileManager fileManager, Map<String, Option> options) {
         this.fileManager = fileManager;
-        this.isDone = isDone;
+        this.options = options;
     }
 
-    public void executeCommand(String[] args) throws IOException {
+    public void executeCommand(String[] args) throws Exception {
+        // Analyse des options
+        OptionsParser optionsParser = new OptionsParser();
+        String optionKey = optionsParser.parseOptions(args).toString();
+
+        // Exécution de l'option si présente
+        if (optionKey != null && options.containsKey(optionKey)) {
+            options.get(optionKey).apply(args);
+            return;
+        }
+
+        // Traitement par défaut
         List<String> positionalArgs = Arrays.asList(args);
         if (positionalArgs.isEmpty()) {
             System.err.println("Missing Command");
@@ -24,11 +37,9 @@ public class TaskManager {
         }
 
         String task = positionalArgs.get(1);
-        if (isDone) {
+        if (options.containsKey("done")) {
             task = "[Done] " + task;
         }
-
-        fileManager.insertTask(task);
 
         String command = positionalArgs.get(0);
 
@@ -54,7 +65,7 @@ public class TaskManager {
     private void listTasks() throws IOException {
         String fileContent = fileManager.readContent();
 
-        if (isDone) {
+        if (options.containsKey("done")) {
             listDoneTasks(fileContent);
         } else {
             fileManager.listTasks(fileContent);

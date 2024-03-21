@@ -4,23 +4,21 @@ import com.fges.todoapp.data.FileManager;
 import com.fges.todoapp.data.FileManagerCsv;
 import com.fges.todoapp.data.FileManagerJson;
 import com.fges.todoapp.logic.TaskManager;
+import com.fges.todoapp.options.Option;
+import com.fges.todoapp.logic.OptionFactory;
+
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
+import java.util.Map;
 
-/**
- * Hello world!
- */
 public class App {
 
-    /**
-     * Do not change this method
-     */
     public static void main(String[] args) throws Exception {
         System.exit(exec(args));
     }
 
-    public static int exec(String[] args) throws IOException {
+    public static int exec(String[] args) throws Exception {
         Options cliOptions = new Options();
         CommandLineParser parser = new DefaultParser();
 
@@ -46,9 +44,9 @@ public class App {
             return 1;
         }
 
-        boolean isDone = cmd.hasOption("d");
+        Map<String, Option> options = OptionFactory.createOptions(fileManager);
+        TaskManager taskManager = new TaskManager(fileManager, options);
 
-        TaskManager taskManager = new TaskManager(fileManager, isDone);
         taskManager.executeCommand(cmd.getArgs());
 
         System.err.println("Done.");
