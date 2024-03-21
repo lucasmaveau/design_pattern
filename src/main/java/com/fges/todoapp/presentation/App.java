@@ -1,6 +1,7 @@
 package com.fges.todoapp.presentation;
 
 
+import com.fges.todoapp.comands.InsertCommand;
 import com.fges.todoapp.commands.MigrateCommand;
 import com.fges.todoapp.data.FileManager;
 import com.fges.todoapp.data.FileManagerCsv;
@@ -24,11 +25,8 @@ public class App {
         CommandLineParser parser = new DefaultParser();
 
         cliOptions.addOption(Option.builder("s").longOpt("source").hasArg().argName("file")
-                .desc("File containing the todos").required().build());
-        cliOptions.addOption(Option.builder("o").longOpt("output").hasArg().argName("file")
-                .desc("Output file for migration").required().build());
-
-        cliOptions.addOption("d", "done", false, "Mark task as done");
+                .desc("Name of the source where the todo should be stored").required().build());
+        cliOptions.addOption(Option.builder("d").longOpt("done").desc("Set the todo status as DONE").build());
 
         CommandLine cmd;
         try {
@@ -39,33 +37,24 @@ public class App {
         }
 
         String sourceFileName = cmd.getOptionValue("source");
-        String outputFileName = cmd.getOptionValue("output");
+        boolean isDone = cmd.hasOption("d");
+        String todoName = cmd.getArgs()[0]; // Get the todo name from positional arguments
 
-        FileManager sourceFileManager;
+        FileManager fileManager;
         if (sourceFileName.endsWith(".json")) {
-            sourceFileManager = new FileManagerJson(sourceFileName);
+            fileManager = new FileManagerJson(sourceFileName);
         } else if (sourceFileName.endsWith(".csv")) {
-            sourceFileManager = new FileManagerCsv(sourceFileName);
+            fileManager = new FileManagerCsv(sourceFileName);
         } else {
             System.err.println("Unsupported source file extension");
             return 1;
         }
 
-        FileManager outputFileManager;
-        if (outputFileName.endsWith(".json")) {
-            outputFileManager = new FileManagerJson(outputFileName);
-        } else if (outputFileName.endsWith(".csv")) {
-            outputFileManager = new FileManagerCsv(outputFileName);
-        } else {
-            System.err.println("Unsupported output file extension");
-            return 1;
-        }
-
-        Map<String, com.fges.todoapp.options.Option> options = OptionFactory.createOptions(sourceFileManager);
-        commands.Command command = new MigrateCommand(sourceFileManager, outputFileManager);
+        commands.Command command = new InsertCommand(fileManager, todoName, isDone);
         command.execute();
 
-        System.err.println("Migration done.");
+        System.err.println("Insertion done.");
         return 0;
     }
+
 }
