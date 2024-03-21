@@ -1,10 +1,10 @@
-package com.fges.todoapp.comands;
+package com.fges.todoapp.commands;
 
 import com.fges.todoapp.data.FileManager;
 
 import java.io.IOException;
 
-public class InsertCommand implements commands.Command {
+public class InsertCommand implements Command {
     private final FileManager fileManager;
     private final String todoName;
     private final boolean isDone;

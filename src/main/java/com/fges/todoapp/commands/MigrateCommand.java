@@ -4,7 +4,7 @@ import com.fges.todoapp.data.FileManager;
 
 import java.io.IOException;
 
-public class MigrateCommand implements commands.Command {
+public class MigrateCommand implements Command {
     private final FileManager sourceFileManager;
     private final FileManager outputFileManager;
 

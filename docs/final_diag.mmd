@@ -1,0 +1,70 @@
+classDiagram
+    class Command {
+        +execute() void
+    }
+    Command <|-- InsertCommand
+    Command <|-- ListCommand
+    Command <|-- MarkAsDoneCommand
+    Command <|-- MigrateCommand
+    Command <|-- WebCommand
+
+    class FileManager {
+        <<interface>>
+        +readContent() String
+        +writeContent(String content) void
+        +insertTask(String task) void
+        +listTasks(String fileContent) void
+        +listDoneTasks(String fileContent) void
+    }
+    FileManager <|-- FileManagerCsv
+    FileManager <|-- FileManagerJson
+    class FileManagerCsv {
+        +readContent() String
+        +writeContent(String content) void
+        +insertTask(String task) void
+        +listTasks(String fileContent) void
+        +listDoneTasks(String fileContent) void
+    }
+    class FileManagerJson {
+        +readContent() String
+        +writeContent(String content) void
+        +insertTask(String task) void
+        +listTasks(String fileContent) void
+        +listDoneTasks(String fileContent) void
+    }
+    class TodoHandler {
+        +createTodo() void
+        +listTodos() void
+    }
+    TaskManager "1" -- "1" FileManager
+    TaskManager "1" -- "1" OptionFactory
+    OptionFactory "1" -- "0..*" Option
+    class TaskManager {
+        -FileManager fileManager
+        -OptionFactory optionFactory
+        +executeCommand(String[] args) void
+        -insertTask(List<String> positionalArgs) void
+        -listTasks() void
+        -listDoneTasks(String fileContent) void
+    }
+    class OptionFactory {
+        +createOption(String optionName) Option
+    }
+    class Option {
+        +applyOption(Map<String, String> options) void
+    }
+    Option <|-- DoneOption
+    Option <|-- OptionsParser
+    class DoneOption {
+        +applyOption(Map<String, String> options) void
+    }
+    class OptionsParser {
+        +applyOption(Map<String, String> options) void
+    }
+    class App {
+        +main(String[] args)
+        +exec(String[] args) int
+    }
+    App -- Command
+    App -- TaskManager
+    App -- OptionsParser

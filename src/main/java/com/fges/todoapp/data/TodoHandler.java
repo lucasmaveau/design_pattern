@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 public class TodoHandler implements HttpHandler {
     private final FileManager fileManager;
@@ -16,6 +15,5 @@ public class TodoHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        // Gérer les requêtes POST et GET ici pour créer et lister les todos
     }
 }

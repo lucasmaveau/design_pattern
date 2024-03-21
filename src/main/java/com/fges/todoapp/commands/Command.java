@@ -1,4 +1,4 @@
-package commands;
+package com.fges.todoapp.commands;
 
 import java.io.IOException;
 

@@ -1,4 +1,3 @@
-// OptionFactory.java
 package com.fges.todoapp.logic;
 
 import com.fges.todoapp.data.FileManager;
@@ -12,7 +11,6 @@ public class OptionFactory {
     public static Map<String, Option> createOptions(FileManager fileManager) {
         Map<String, Option> options = new HashMap<>();
         options.put("--done", new DoneOption(fileManager));
-        // Ajoutez d'autres options au besoin
         return options;
     }
 }

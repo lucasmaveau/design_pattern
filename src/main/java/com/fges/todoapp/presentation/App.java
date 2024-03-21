@@ -1,18 +1,15 @@
 package com.fges.todoapp.presentation;
 
 
-import com.fges.todoapp.comands.InsertCommand;
-import com.fges.todoapp.commands.MigrateCommand;
+import com.fges.todoapp.commands.Command;
+import com.fges.todoapp.commands.WebCommand;
 import com.fges.todoapp.data.FileManager;
 import com.fges.todoapp.data.FileManagerCsv;
 import com.fges.todoapp.data.FileManagerJson;
 
-import com.fges.todoapp.logic.OptionFactory;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
-
-import java.util.Map;
 
 public class App {
 
@@ -50,7 +47,7 @@ public class App {
             return 1;
         }
 
-        commands.Command command = new InsertCommand(fileManager, todoName, isDone);
+        Command command = new WebCommand(fileManager);
         command.execute();
 
         System.err.println("Insertion done.");

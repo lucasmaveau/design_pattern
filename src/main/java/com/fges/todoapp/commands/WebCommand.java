@@ -1,4 +1,4 @@
-package com.fges.todoapp.comands;
+package com.fges.todoapp.commands;
 
 import com.fges.todoapp.data.FileManager;
 import com.sun.net.httpserver.HttpServer;
@@ -6,7 +6,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-public class WebCommand implements commands.Command {
+public class WebCommand implements Command {
     private final FileManager fileManager;
 
     public WebCommand(FileManager fileManager) {
