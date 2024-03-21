@@ -4,30 +4,54 @@
 
 Ce rapport final présente une vue d'ensemble de notre projet de gestion de tâches TODO. Nous avons développé une application en ligne de commande (CLI) qui permet aux utilisateurs de gérer leurs tâches et de stocker les données dans différents types de sources de données. Nous avons également ajouté une fonctionnalité de démarrage d'un serveur web pour permettre l'accès aux tâches via une API REST.
 
-## A new command
+## Structure du Projet
 
-Pour ajouter une nouvelle commande à l'application, un nouveau fichier de commande doit être créé dans le package `commands`. Ce fichier doit implémenter l'interface `Command` et fournir une implémentation de la méthode `execute()` pour exécuter la logique de la commande. Ensuite, la nouvelle commande doit être intégrée dans la méthode `exec()` de la classe `App.java` pour être exécutée à partir de la ligne de commande.
+Le projet est organisé en plusieurs packages, chacun contenant des classes et des interfaces spécifiques. Voici la structure du projet :
 
-## A new file-based datasource
+### Commands
 
-Pour ajouter une nouvelle source de données basée sur un fichier, un nouveau gestionnaire de fichiers doit être créé dans le package `data`. Ce gestionnaire de fichiers doit implémenter l'interface `FileManager` pour fournir des méthodes pour lire, écrire et manipuler les données dans le fichier. Ensuite, le nouveau gestionnaire de fichiers doit être intégré dans la méthode `exec()` de la classe `App.java` pour être utilisé par les commandes qui nécessitent un accès à la source de données.
+- **Command**: Interface de base pour toutes les commandes.
+- **InsertCommand**: Commande pour insérer une nouvelle tâche.
+- **ListCommand**: Commande pour lister les tâches.
+- **MarkAsDoneCommand**: Commande pour marquer une tâche comme terminée.
+- **MigrateCommand**: Commande pour migrer les tâches d'une source vers une autre.
+- **WebCommand**: Commande pour démarrer un serveur web.
 
-## A non-file-based datasource
+### Data
 
-Pour ajouter une nouvelle source de données non basée sur un fichier, un nouveau service doit être créé dans le package `service`. Ce service doit fournir des méthodes pour interagir avec la source de données non basée sur un fichier, qu'il s'agisse d'une base de données, d'une API web, ou autre. Ensuite, le nouveau service doit être utilisé par les commandes appropriées pour accéder et manipuler les données à partir de la source de données.
+- **FileManager**: Interface pour la gestion des fichiers.
+- **FileManagerCsv**: Implémentation de FileManager pour les fichiers CSV.
+- **FileManagerJson**: Implémentation de FileManager pour les fichiers JSON.
 
-## A new attribute to a Todo
+### Logic
 
-Pour ajouter un nouvel attribut à une tâche TODO, la classe `Todo.java` doit être modifiée pour inclure le nouvel attribut avec ses getters et setters correspondants. Ensuite, toutes les classes qui interagissent avec la classe `Todo` doivent être mises à jour pour prendre en compte le nouvel attribut, en particulier les commandes qui lisent et écrivent des tâches TODO.
+- **TaskManager**: Gère l'exécution des commandes et la manipulation des tâches.
+- **OptionFactory**: Fabrique d'options pour créer et gérer les options des commandes.
 
-## A new interface to the project
+### Options
 
-Pour ajouter une nouvelle interface au projet, une nouvelle interface Java doit être créée dans le package approprié en fonction du contexte de son utilisation. Par exemple, si l'interface est destinée à être utilisée par les gestionnaires de fichiers, elle peut être placée dans le package `data`. Ensuite, les classes qui doivent implémenter cette interface doivent être mises à jour pour fournir une implémentation appropriée de ses méthodes.
+- **DoneOption**: Option pour marquer une tâche comme terminée.
+- **Option**: Interface de base pour toutes les options.
+- **OptionsParser**: Parseur d'options pour interpréter les arguments de la ligne de commande.
+
+### Presentation
+
+- **App**: Classe principale pour lancer l'application et exécuter les commandes.
+
+## How can a newcomer...
+
+- **Add a new command**: Créez une nouvelle classe de commande dans le package `commands`, implémentez l'interface `Command`, et ajoutez-la à la méthode `exec()` dans `App.java`.
+
+- **Add a new file-based datasource**: Créez une nouvelle implémentation de `FileManager` dans le package `data` et assurez-vous qu'elle peut lire et écrire des données à partir du nouveau type de source de données.
+
+- **Add a non-file-based datasource**: Créez un nouveau service pour interagir avec la nouvelle source de données, puis intégrez ce service dans les commandes appropriées pour accéder et manipuler les données.
+
+- **Add a new attribute to a Todo**: Modifiez la classe `TaskManager` pour inclure le nouvel attribut avec ses getters et setters, puis mettez à jour toutes les classes qui interagissent avec `TaskManager` pour prendre en compte le nouvel attribut.
+
+- **Add a new interface to the project**: Créez une nouvelle interface dans le package approprié et assurez-vous que les classes qui doivent l'implémenter fournissent une implémentation appropriée de ses méthodes.
 
 ## Class Diagram
 
-Veuillez trouver dans le repertoire docs, les diagrammes.
+Veuillez trouver ci-dessous le diagramme de classes du projet.
 
-
-LUCAS MAVEAU 
-L3 SDN
+![Class Diagram](final_diag.mmd)
